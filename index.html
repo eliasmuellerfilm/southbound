@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>southbound productions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --black:#0e0e0e;
+      --sb-dark:#1d1d1b;
+      --white:#f5f5f3;
+      --muted:#666;
+      --rule:#2a2a28;
+      --ff-head:'Barlow Condensed',sans-serif;
+      --ff-body:'Barlow',sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:var(--ff-body);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    .container{max-width:1140px;margin:0 auto;padding:0 2rem}
+
+    /* HERO */
+    .hero{position:relative;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+    .hero-video{position:absolute;inset:0;z-index:0}
+    .hero-video video{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-video::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,14,14,.25) 0%,rgba(14,14,14,.65) 100%)}
+    .hero-content{position:relative;z-index:1;text-align:center;padding:0 2rem;display:flex;flex-direction:column;align-items:center;gap:2.5rem}
+    .hero-logo{width:clamp(300px,55vw,720px);display:block}
+    .hero-claim{font-family:var(--ff-head);font-size:clamp(1rem,2vw,1.4rem);font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,245,243,.5);line-height:1.4}
+    .scroll-hint{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(245,245,243,.4);font-size:.58rem;font-family:var(--ff-head);letter-spacing:.3em;text-transform:uppercase;text-decoration:none;transition:color .3s}
+    .scroll-hint:hover{color:var(--white)}
+    .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(245,245,243,.5),transparent);animation:scrollpulse 2s ease-in-out infinite}
+    @keyframes scrollpulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
+    .hero-ticker{position:absolute;bottom:0;left:0;right:0;z-index:2;border-top:1px solid rgba(255,255,255,.08);overflow:hidden;height:38px;display:flex;align-items:center}
+    .ticker-track{display:flex;white-space:nowrap;animation:ticker 30s linear infinite}
+    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .ticker-item{font-family:var(--ff-head);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,245,243,.25);padding:0 3rem}
+
+    /* SECTIONS */
+    section{padding:6rem 0}
+    hr.rule{border:none;border-top:1px solid var(--rule);margin:0}
+    .section-eyebrow{font-family:var(--ff-head);font-size:.62rem;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+    .section-heading{font-family:var(--ff-head);font-size:clamp(2.8rem,5vw,4.5rem);font-weight:600;line-height:.95;text-transform:uppercase;letter-spacing:.02em;margin-bottom:3.5rem}
+
+    /* PROJECT GRID */
+    #arbeiten{padding-top:5rem}
+    .project-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+    .pc-1{grid-column:span 7}   /* Tier 1 groß */
+    .pc-2{grid-column:span 5}   /* Tier 1 mittel */
+    .pc-3{grid-column:span 4}   /* Tier 2 */
+    .pc-4{grid-column:span 4}
+    .pc-5{grid-column:span 4}
+    .pc-6{grid-column:span 4}   /* Tier 3 */
+    .pc-7{grid-column:span 4}
+    .pc-8{grid-column:span 4}
+
+    .project-card{position:relative;overflow:hidden;display:block;text-decoration:none;background:var(--black)}
+    .project-thumb{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.25,.46,.45,.94),filter .5s;filter:saturate(.6) brightness(.82)}
+    .project-card:hover .project-thumb{transform:scale(1.06);filter:saturate(1) brightness(1)}
+    .project-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,14,.95) 0%,rgba(14,14,14,.15) 55%,transparent 100%)}
+    .project-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.8rem;display:flex;justify-content:space-between;align-items:flex-end}
+    .project-label{display:flex;flex-direction:column;gap:.3rem}
+    .project-tag{font-family:var(--ff-head);font-size:.57rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,245,243,.4)}
+    .project-name{font-family:var(--ff-head);font-size:clamp(1rem,2vw,1.4rem);font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--white)}
+    .project-arrow{font-size:1.2rem;color:rgba(245,245,243,.25);transition:color .3s,transform .3s;flex-shrink:0;margin-bottom:.1rem}
+    .project-card:hover .project-arrow{color:var(--white);transform:translate(3px,-3px)}
+
+    /* LEISTUNGEN */
+    #leistungen{background:var(--sb-dark)}
+    .leistungen-inner{display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:start}
+    .leistungen-left{position:sticky;top:5rem}
+    .leistungen-list{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule)}
+    .leistung-item{padding:2.2rem 1.8rem 2.2rem 0;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule)}
+    .leistung-item:nth-child(2n){border-right:none}
+    .leistung-item:last-child{border-bottom:none;grid-column:span 2;border-right:none}
+    .leistung-item:nth-last-child(2){border-bottom:none}
+    .leistung-num{font-family:var(--ff-head);font-size:.57rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+    .leistung-title{font-family:var(--ff-head);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.8rem;color:var(--white)}
+    .leistung-text{font-size:.87rem;color:var(--muted);line-height:1.8}
+
+    /* STATS */
+    .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+    .stat-item{padding:2.5rem 2rem;border-right:1px solid var(--rule);text-align:center}
+    .stat-item:last-child{border-right:none}
+    .stat-number{font-family:var(--ff-head);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1;color:var(--white);letter-spacing:-.02em}
+    .stat-label{font-family:var(--ff-head);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:.5rem}
+
+    /* ÜBER */
+    #ueber{background:var(--black)}
+    .ueber-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+    .ueber-text{padding:5rem 5rem 5rem 0;border-right:1px solid var(--rule)}
+    .ueber-text p{font-size:1rem;color:#999;line-height:2;margin-bottom:1.5rem}
+    .ueber-text p:last-child{margin-bottom:0}
+    .ueber-highlight{font-family:var(--ff-head);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;text-transform:uppercase;letter-spacing:.04em;line-height:1.1;color:var(--white);margin-bottom:2.5rem}
+    .ueber-img{overflow:hidden}
+    .ueber-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:grayscale(20%);transition:filter .6s}
+    .ueber-img img:hover{filter:grayscale(0%)}
+
+    /* KONTAKT */
+    #kontakt{background:var(--sb-dark)}
+    .kontakt-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+    .kontakt-left p{font-size:.95rem;color:var(--muted);line-height:1.9;margin-bottom:2.5rem}
+    .kontakt-line{display:flex;justify-content:space-between;align-items:center;text-decoration:none;border-bottom:1px solid var(--rule);padding:1.1rem 0;transition:border-color .25s}
+    .kontakt-line:hover{border-color:#555}
+    .kontakt-line-label{font-family:var(--ff-head);font-size:.57rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+    .kontakt-line-val{font-size:.9rem;color:var(--white);letter-spacing:.02em}
+    .big-cta{margin-top:3rem}
+    .big-cta-text{font-family:var(--ff-head);font-size:clamp(2rem,4vw,3.5rem);font-weight:600;text-transform:uppercase;letter-spacing:.04em;line-height:1.05;color:var(--white);margin-bottom:2rem}
+    .btn-cta{display:inline-block;padding:1.1rem 3rem;border:1px solid var(--white);color:var(--white);text-decoration:none;font-family:var(--ff-head);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:background .25s,color .25s}
+    .btn-cta:hover{background:var(--white);color:var(--black)}
+
+    /* FOOTER */
+    footer{padding:2rem 0;border-top:1px solid var(--rule)}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+    .footer-logo{height:18px;display:block}
+    .footer-links{display:flex;gap:3rem}
+    .footer-links a{color:var(--muted);text-decoration:none;font-family:var(--ff-head);font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;transition:color .25s}
+    .footer-links a:hover{color:var(--white)}
+    .footer-copy{color:var(--rule);font-size:.6rem;font-family:var(--ff-head);letter-spacing:.1em}
+
+    /* FADE */
+    .fade-up{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+
+    /* RESPONSIVE */
+    @media(max-width:1000px){
+      .pc-1,.pc-2{grid-column:span 6}
+      .pc-3,.pc-4,.pc-5,.pc-6,.pc-7,.pc-8{grid-column:span 4}
+      .leistungen-inner{grid-template-columns:1fr;gap:3rem}
+      .leistungen-left{position:static}
+      .ueber-inner{grid-template-columns:1fr}
+      .ueber-text{padding:3rem 0;border-right:none;border-bottom:1px solid var(--rule)}
+      .ueber-img{height:400px}
+      .kontakt-inner{grid-template-columns:1fr;gap:3rem}
+      .stats-bar{grid-template-columns:1fr 1fr}
+      .stat-item:nth-child(2){border-right:none}
+      .stat-item:nth-child(3){border-top:1px solid var(--rule)}
+      .stat-item:nth-child(4){border-top:1px solid var(--rule)}
+    }
+    @media(max-width:700px){
+      .project-grid{display:flex;flex-direction:column;background:none;border:none;gap:.8rem}
+      .leistungen-list{grid-template-columns:1fr}
+      .leistung-item{border-right:none}
+      .leistung-item:nth-last-child(2){border-bottom:1px solid var(--rule)}
+      .stats-bar{grid-template-columns:1fr 1fr}
+      .hero-logo{width:clamp(220px,80vw,420px)}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline poster="video-poster.jpg">
+      <source src="showreel_website_2025_V2.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-content">
+    <img class="hero-logo" src="southbound-logo_horizontal_w_bg-t.svg" alt="southbound productions">
+    <div class="hero-claim">Corporate Video &nbsp;·&nbsp; Content Creation &nbsp;·&nbsp; Videografie</div>
+  </div>
+  <a href="#arbeiten" class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </a>
+  <div class="hero-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Corporate Video —</span>
+      <span class="ticker-item">Content Creation —</span>
+      <span class="ticker-item">Event Dokumentation —</span>
+      <span class="ticker-item">Kamera &amp; Produktion —</span>
+      <span class="ticker-item">Postproduktion —</span>
+      <span class="ticker-item">Nürnberg &amp; Worldwide —</span>
+      <span class="ticker-item">Corporate Video —</span>
+      <span class="ticker-item">Content Creation —</span>
+      <span class="ticker-item">Event Dokumentation —</span>
+      <span class="ticker-item">Kamera &amp; Produktion —</span>
+      <span class="ticker-item">Postproduktion —</span>
+      <span class="ticker-item">Nürnberg &amp; Worldwide —</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARBEITEN -->
+<section id="arbeiten">
+  <div class="container">
+    <div class="section-eyebrow fade-up">Portfolio</div>
+    <h2 class="section-heading fade-up">Unsere<br>Arbeiten</h2>
+  </div>
+  <div style="padding:0 2rem;max-width:1140px;margin:0 auto">
+    <div class="project-grid">
+
+      <!-- TIER 1: Die wichtigsten – groß -->
+      <a class="project-card pc-1 fade-up" href="subpage_ironman.html">
+        <img class="project-thumb" src="https://eliasmuellerfilm.de/imc2.jpg" alt="Ironman Triathlon">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Corporate Video · Event</div>
+            <div class="project-name">Ironman Triathlon</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="project-card pc-2 fade-up" href="subpage_ihkwahlspot.html" style="transition-delay:.07s">
+        <img class="project-thumb" src="https://eliasmuellerfilm.de/ihk-02.jpg" alt="IHK Wahlspot">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Corporate Video · TV-Spot</div>
+            <div class="project-name">IHK Wahlspot</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+      <!-- TIER 2: Mittel wichtig – gleichwertig -->
+      <a class="project-card pc-3 fade-up" href="subpage_gridlessnairobi.html" style="transition-delay:.12s">
+        <img class="project-thumb" src="https://eliasmuellerfilm.de/gn8.jpg" alt="Gridless Nairobi">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Corporate Video · Doku</div>
+            <div class="project-name">Gridless Nairobi</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="project-card pc-4 fade-up" href="subpage_minibar.html" style="transition-delay:.17s">
+        <img class="project-thumb" src="https://eliasmuellerfilm.de/Minibar-Erlangen-color-02.jpg" alt="Minibar Erlangen">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Content Creation · Social Media</div>
+            <div class="project-name">Minibar Erlangen</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="project-card pc-5 fade-up" href="subpage_marathonfrankfurt.html" style="transition-delay:.22s">
+        <img class="project-thumb" src="https://eliasmuellerfilm.de/fra-02.jpg" alt="Marathon Frankfurt">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Content Creation · Aftervideo</div>
+            <div class="project-name">Marathon Frankfurt</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+      <!-- TIER 3: Weniger wichtig – gleichwertig klein -->
+      <a class="project-card pc-6 fade-up" href="subpage_pax8.html" style="transition-delay:.27s">
+        <img class="project-thumb" src="pbb2.jpg" alt="Pax8 Beyond">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Corporate Video · Event</div>
+            <div class="project-name">Pax8 Beyond</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="project-card pc-7 fade-up" href="subpage_comicsalon.html" style="transition-delay:.32s">
+        <img class="project-thumb" src="https://eliasmuellerfilm.de/cs8.jpg" alt="Comic Salon 2022">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Event · Dokumentation</div>
+            <div class="project-name">Comic Salon 2022</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="project-card pc-8 fade-up" href="subpage_kfz.html" style="transition-delay:.37s">
+        <img class="project-thumb" src="https://eliasmuellerfilm.de/Kfz_01.jpg" alt="Edelkarossen KFZ">
+        <div class="project-overlay"></div>
+        <div class="project-info">
+          <div class="project-label">
+            <div class="project-tag">Content Creation · Social Media</div>
+            <div class="project-name">Edelkarossen KFZ</div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats-bar">
+    <div class="stat-item fade-up">
+      <div class="stat-number">20+</div>
+      <div class="stat-label">Rennen &amp; Events</div>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:.08s">
+      <div class="stat-number">7</div>
+      <div class="stat-label">Jahre Erfahrung</div>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:.16s">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Kontinente</div>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:.24s">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Geschichten</div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<!-- LEISTUNGEN -->
+<section id="leistungen">
+  <div class="container">
+    <div class="leistungen-inner">
+      <div class="leistungen-left fade-up">
+        <div class="section-eyebrow">Was wir anbieten</div>
+        <h2 class="section-heading" style="font-size:clamp(2.2rem,4vw,3.5rem)">Unsere<br>Leistungen</h2>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.85;max-width:280px">Wir begleiten durch den ganzen Prozess – vom ersten Konzept bis zur fertigen Ausspielung.</p>
+      </div>
+      <div class="leistungen-list fade-up" style="transition-delay:.1s">
+        <div class="leistung-item">
+          <div class="leistung-num">01</div>
+          <div class="leistung-title">Corporate Video</div>
+          <p class="leistung-text">Imagefilme, TV-Spots, Wahlkampagnen und Unternehmensporträts – professionell produziert und auf Ihre Zielgruppe zugeschnitten.</p>
+        </div>
+        <div class="leistung-item">
+          <div class="leistung-num">02</div>
+          <div class="leistung-title">Content Creation</div>
+          <p class="leistung-text">Kurzer, prägnanter Video-Content für Social Media – plattformgerecht für Instagram, LinkedIn, TikTok und mehr.</p>
+        </div>
+        <div class="leistung-item">
+          <div class="leistung-num">03</div>
+          <div class="leistung-title">Event &amp; Aftervideos</div>
+          <p class="leistung-text">Atmosphärische Dokumentationen Ihrer Veranstaltung – von der Konferenz bis zum Sportevent. Ein Recap, der nachwirkt.</p>
+        </div>
+        <div class="leistung-item">
+          <div class="leistung-num">04</div>
+          <div class="leistung-title">Kamera &amp; Produktion</div>
+          <p class="leistung-text">Vollständige Produktionsbetreuung aus einer Hand – von der Vorproduktion über den Drehtag bis zum finalen Schnitt.</p>
+        </div>
+        <div class="leistung-item">
+          <div class="leistung-num">05</div>
+          <div class="leistung-title">Schnitt &amp; Postproduktion</div>
+          <p class="leistung-text">Professioneller Schnitt, Farbkorrektur und Tonmischung – auch für Material, das bereits bei Ihnen vorliegt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ÜBER UNS -->
+<section id="ueber">
+  <div class="container">
+    <div class="section-eyebrow fade-up" style="margin-bottom:3rem">Über uns</div>
+  </div>
+  <div class="ueber-inner">
+    <div class="ueber-text fade-up">
+      <div class="ueber-highlight">Wir machen<br>keine Werbung.<br>Wir verbinden.</div>
+      <p>southbound productions ist ein Videoproduzent aus Nürnberg mit weltweiter Dreherfahrung. Hinter dem Label steht Elias Müller – Kameramann, Produzent und Geschichtenerzähler.</p>
+      <p>Seit über sieben Jahren entstehen hier Projekte, die nicht nur gut aussehen, sondern etwas bewirken. Corporate Videos, die Vertrauen schaffen. Event-Recaps, die Energie transportieren. Content, der hängen bleibt.</p>
+      <p>Unser Netzwerk aus erfahrenen Kameramenschen, Cuttern und Produzenten ermöglicht flexible Crews – genau die richtige Größe für jedes Projekt.</p>
+    </div>
+    <div class="ueber-img fade-up" style="transition-delay:.15s">
+      <img src="https://eliasmuellerfilm.de/me--5.jpg" alt="Elias Müller – southbound productions">
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="container">
+    <div class="kontakt-inner">
+      <div class="kontakt-left fade-up">
+        <div class="section-eyebrow">Kontakt</div>
+        <h2 class="section-heading" style="font-size:clamp(2.2rem,4vw,3.2rem);margin-bottom:1.5rem">Projekt<br>anfragen</h2>
+        <p>Erzählen Sie uns von Ihrem Projekt. Wir melden uns schnell und unkompliziert zurück.</p>
+        <a class="kontakt-line" href="mailto:hi@southboundproductions.de">
+          <span class="kontakt-line-label">E-Mail</span>
+          <span class="kontakt-line-val">hi@southboundproductions.de</span>
+        </a>
+        <a class="kontakt-line" href="tel:+4917657772673">
+          <span class="kontakt-line-label">Telefon</span>
+          <span class="kontakt-line-val">+49 176 57772673</span>
+        </a>
+        <a class="kontakt-line" href="#">
+          <span class="kontakt-line-label">Adresse</span>
+          <span class="kontakt-line-val">Nürnberg, Deutschland</span>
+        </a>
+      </div>
+      <div class="kontakt-right fade-up" style="transition-delay:.15s">
+        <div class="big-cta">
+          <div class="big-cta-text">Bereit für Ihr nächstes Videoprojekt?</div>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.85;margin-bottom:2.5rem">Egal ob erster Imagefilm, regelmäßiger Social Media Content oder Event-Dokumentation – lassen Sie uns zusammen etwas Gutes entstehen lassen.</p>
+          <a class="btn-cta" href="mailto:hi@southboundproductions.de">Jetzt anfragen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <img class="footer-logo" src="southbound-logo_horizontal_b_bg-w.svg" alt="southbound productions" style="height:18px;filter:invert(1);opacity:.4">
+      <div class="footer-links">
+        <a href="subpage_impressumdatenschutz.html">Impressum &amp; Datenschutz</a>
+      </div>
+      <span class="footer-copy">2025 southbound productions</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.08});
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
